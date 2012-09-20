@@ -11,8 +11,21 @@
 
 class P2PSlides_Integration
 {
+    /**
+     * A key to help define connections.
+     *
+     * @since   1.0
+     */
     const POSTFIX = '_to_slides';
 
+    /**
+     * Adds actions and such.
+     *
+     * @since   1.0
+     * @access  public
+     * @uses    add_action
+     * @return  null
+     */
     public static function init()
     {
         add_action(
@@ -26,6 +39,14 @@ class P2PSlides_Integration
         );
     }
 
+    /**
+     * Hooked into `p2p_init`.  Registers the connections.
+     *
+     * @since   1.0
+     * @access  public
+     * @uses    p2p_register_connection_type
+     * @return  null
+     */
     public static function connections()
     {
         foreach(self::get_connectable() as $type)
@@ -53,6 +74,17 @@ class P2PSlides_Integration
         }
     }
 
+    /**
+     * Hooked into `loop_start`.  If the current post type happens to have
+     * slides connected to it, this will fetch them using `each_connected
+     *
+     * @since   1.0
+     * @access  public
+     * @uses    p2p_type
+     * @uses    is_admin
+     * @uses    is_main_query
+     * @return  null
+     */
     public static function start($q)
     {
         if(is_admin() || !$q->is_main_query())
@@ -91,6 +123,14 @@ class P2PSlides_Integration
         }
     }
 
+    /**
+     * Get all the connectable post types for registration.
+     *
+     * @since   1.0
+     * @access  private
+     * @uses    get_them_support
+     * @return  array
+     */
     private static function get_connectable()
     {
         $types = get_theme_support('p2p-slides');
