@@ -55,13 +55,7 @@ class P2PSlides_Integration
                 'name'      => $type . self::POSTFIX,
                 'from'      => $type,
                 'to'        => P2PSlides_Post_Type::TYPE,
-                'fields'    => array(
-                    'slide_order' => array(
-                        'title'     => __('Slide Order', 'p2p-slides'),
-                        'type'      => 'number',
-                        'default'   => 0,
-                    ),
-                ),
+                'sortable'  => 'from',
                 'admin_box' => array(
                     'show'      => 'from',
                     'context'   => 'normal'
@@ -105,13 +99,6 @@ class P2PSlides_Integration
         if($type)
         {
             p2p_type($type . self::POSTFIX)->each_connected($q, array(
-                'connected_meta'    => array(
-                    array(
-                        'key'     => 'slide_order',
-                    )
-                ),
-                'connected_orderby' => 'slide_order',
-                'connected_order'   => 'ASC',
                 'nopaging'          => true,
             ), 'slides');
         }
